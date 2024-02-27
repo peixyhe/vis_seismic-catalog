@@ -8,10 +8,11 @@ down = 21.8    #                           up(-90.0, 90.0)
 left = 97.8    #     left(-180.0, 180.0)                     right(-180.0, 180.0)
 right = 107    #                          down(-90.0, 90.0)
 
-step = 0.05
-sigma_square2 = 2.0 * 5    # square(sigma) * 2  is the parameter of RBF Kernel
-a = 0.001                  # a is the parameter of RBF Kernel
+step = 0.01
 scale = 10                 # Scaling factor
+
+# sigma_square2 = 2.0 * 5    # square(sigma) * 2  is the parameter of RBF Kernel
+# a = 0.001                  # a is the parameter of RBF Kernel
 
 
 
@@ -22,11 +23,11 @@ import numpy as np
 from scipy.spatial import cKDTree
 
 half_setp = round(  step * 0.5, 5  )
-ANGLE2METERS = 2 * math.pi * 6371393.0 / 360.0    # EARTH_RADIUS = 6371393.0
-z0 = scale * 6000 / ANGLE2METERS
+ANGLE2METERS = 2 * math.pi * 6371.393 / 360.0    # EARTH_RADIUS = 6371393.0
+z0 = scale * 0.000001 / ANGLE2METERS
 
-def gaussian_kernel(  x0, y0, x1, y1  ):
-    r = np.power(x1 - x0, 2) + np.power(y1 - y0, 2)
+def gaussian_kernel(  p0, p1, a, sigma_square2  ):
+    r = np.power(p1[0] - p0[0], 2) + np.power(p1[1] - p0[1], 2)
     return a * np.exp(  -1.0 * r / sigma_square2   )
 
 colors = vtk.vtkNamedColors()
@@ -80,16 +81,16 @@ y = [  round(y0, 5) for y0 in np.arange(down, up + half_setp, step)  ]
 
 for yj in y:
     for xi in x:
-        hotmap_list = []
+        p0 = [xi, yj]
         mag0 = 0.0
         rbf0 = 0.0
-        indices = data_kdTree.query_ball_point(  [xi, yj], r = step  )
+        indices = data_kdTree.query_ball_point(  p0, r = 0.05  )
         
         for index in indices:
-            p = data[index]
-            rbf0 += gaussian_kernel(xi, yj, p[0], p[1])
-            if p[2] > mag0:
-                mag0 = p[2]
+            p1 = data[index]
+            rbf0 += gaussian_kernel(    p0, [p1[0], p1[1]], 0.001 * p1[-1], math.pow(  10.0, (p1[-1]-4.56)/1.96  )    )
+            if p1[2] > mag0:
+                mag0 = p1[2]
 
         points.InsertNextPoint(xi, yj, z0 + rbf0)
         freq.InsertNextValue(  len(indices)  )
