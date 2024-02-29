@@ -61,10 +61,10 @@ def process_point(yj, x, data, data_kdTree):
             p1 = data[index]
             xyz1 = BLH2XYZ(p1[0], p1[1])
             sig = math.pow(2.0, p1[-1])
-            distance = math.sqrt((xyz1[0] - xyz0[0]) ** 2 + (xyz1[1] - xyz0[1]) ** 2 + (xyz1[2] - xyz0[2]) ** 2)
+            distance = math.sqrt(    (xyz1[0] - xyz0[0]) ** 2 + (xyz1[1] - xyz0[1]) ** 2 + (xyz1[2] - xyz0[2]) ** 2    )
             
             if distance < 4.0 * sig:
-                A = 7.0 / p1[-1]
+                A = p1[-1] / 1000.0
                 gaussian = round(  gaussian_kernel(distance, A, sig), 5  )
             else:
                 gaussian = 0.0
