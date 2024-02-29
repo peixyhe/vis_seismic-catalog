@@ -1,7 +1,7 @@
-#################################################################################################
-####  The program is used to visualize seismic catalog data based on RBF Kernel resampling.  ####
-####  Author: He Pei; 2024.02.25                                                             ####
-#################################################################################################
+####################################################################################################################
+####  The program is used to visualize seismic catalog data based on RBF Kernel resampling by CPU parallelism.  ####
+####  Author: He Pei; 2024.02.25                                                                                ####
+####################################################################################################################
 
 
 
@@ -13,10 +13,14 @@ from scipy.spatial import cKDTree
 import vtk
 
 # compute
+## geographic region:
+##                                         up(-90.0, 90.0)
+##                    left(-180.0, 180.0)                     right(-180.0, 180.0)
+##                                         down(-90.0, 90.0)
 up = 33.4      
-down = 21.8   
+down = 21.8
 left = 97.8   
-right = 107   
+right = 107 
 
 step = 0.01
 scale = 10                
@@ -42,7 +46,7 @@ def BLH2XYZ(L, B):
     return X / 1000.0, Y / 1000.0, Z / 1000.0
 
 def gaussian_kernel(d, a, sigma):
-    return a * np.exp(-1.0 * (d * d) / (2.0 * (sigma ** 2)))
+    return a * np.exp(    -1.0 * (d * d) / (  2.0 * (sigma ** 2)  )    )
 
 def process_point(yj, x, data, data_kdTree):
     print(yj)
@@ -61,17 +65,17 @@ def process_point(yj, x, data, data_kdTree):
             
             if distance < 4.0 * sig:
                 A = 7.0 / p1[-1]
-                gaussian = round(gaussian_kernel(distance, A, sig), 5)
+                gaussian = round(  gaussian_kernel(distance, A, sig), 5  )
             else:
                 gaussian = 0.0
             rbf0 += gaussian
             
             if p1[2] > mag0:
                 mag0 = p1[2]
-
-        freq0 = len(indices)        
+        
         rbf0 = round(rbf0, 8)
-        result.append((xi, yj, z0 + rbf0, freq0, mag0, rbf0))
+        freq0 = len(indices)
+        result.append(  [xi, yj, rbf0, freq0, mag0]  )
     return result
 
 if __name__ == '__main__':
@@ -110,12 +114,13 @@ if __name__ == '__main__':
     max_mag = vtk.vtkFloatArray()
     max_mag.SetNumberOfComponents(1)
     max_mag.SetName('MAX magnitude')
-
-    for line in results:
-        points.InsertNextPoint(    line[0], line[1], line[2]+z0    )
-        rbf.InsertNextValue(line[2])
-        freq.InsertNextValue(line[3])
-        max_mag.InsertNextValue(line[4])
+    
+    for lin in results:
+        for line in lin:
+            points.InsertNextPoint(    line[0], line[1], line[2]+z0    )
+            rbf.InsertNextValue(line[2])
+            freq.InsertNextValue(line[3])
+            max_mag.InsertNextValue(line[4])
     
     x_num = len(x)
     y_num = len(y)
