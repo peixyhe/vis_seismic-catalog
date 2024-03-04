@@ -1,3 +1,10 @@
 地震目录可视化小脚本。
 
-![image](https://github.com/peixyhe/vis_seismic-catalog/blob/main/pic/2d_sphere.png)
+![image](pic/2d_sphere.png)
+
+![image](pic/3d_sphere.png)
+
+![image](pic/hotmap.png)
+
+![image](pic/rbf_cpu.png)
+
