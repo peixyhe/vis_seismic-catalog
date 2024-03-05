@@ -4,7 +4,7 @@
 ###################################################################################
 
 scale = 10
-
+min_mag = 1.0
 
 
 import vtk
@@ -23,11 +23,13 @@ def mag2radius(mag0):
     return math.pow(  2.0, (mag0 - 4.56) / 1.96  )
 
 max_radius = mag2radius(  max(mag)  )
-z0 = scale * 6.0 / ANGLE2KILOMETERS
+z0 = 0.05
+# z0 = scale * 6.0 / ANGLE2KILOMETERS
 
 vtk_points = vtk.vtkPoints()
 for i in range(len(lon)):
-    vtk_points.InsertNextPoint(  lon[i], lat[i], z0  )
+    if mag[i] >= min_mag:
+        vtk_points.InsertNextPoint(  lon[i], lat[i], z0  )
 
 polydata = vtk.vtkPolyData()
 polydata.SetPoints(vtk_points)
@@ -35,16 +37,18 @@ polydata.SetPoints(vtk_points)
 diameter_array = vtk.vtkFloatArray()
 diameter_array.SetName("diameter")
 for j in range(len(mag)):
-    diameter = (  mag2radius(mag[j]) / max_radius  ) * 0.4
-    diameter_array.InsertNextValue(diameter)
+    if mag[j] >= min_mag:
+        diameter = (  mag2radius(mag[j]) / max_radius  ) * 0.4
+        diameter_array.InsertNextValue(diameter)
 
 dep_array = vtk.vtkFloatArray()
 dep_array.SetName("Depth")
 mag_array = vtk.vtkFloatArray()
 mag_array.SetName("magnitude")
 for k in range(len(dep)): 
-    dep_array.InsertNextValue(dep[k])
-    mag_array.InsertNextValue(mag[k])
+    if mag[k] >= min_mag:
+        dep_array.InsertNextValue(dep[k])
+        mag_array.InsertNextValue(mag[k])
 
 polydata.GetPointData().SetScalars(diameter_array)    # SetScalars; not AddArray
 polydata.GetPointData().AddArray(dep_array)
@@ -63,7 +67,7 @@ glyph.SetScaleModeToScaleByScalar()
 
 # 创建vtkPolyDataWriter将数据写入VTK文件
 writer = vtk.vtkPolyDataWriter()
-writer.SetFileName("2D_points.vtk")
+writer.SetFileName("2D_points_minMAG.vtk")
 writer.SetInputConnection(glyph.GetOutputPort())
 writer.Write()
 
