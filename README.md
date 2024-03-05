@@ -2,7 +2,9 @@
 
 ## 1、散点图：
 ![二维散点球](pic/2d_sphere.png)
+图名:二维散点球
 ![三维散点球](pic/3d_sphere.png)
+图名:三维散点球
 
 ## 2、热力图：
 ![热力图](pic/hotmap.png)
