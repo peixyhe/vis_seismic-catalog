@@ -3,7 +3,8 @@
 ####  Author: He Pei; 2024.02.25                                               ####
 ###################################################################################
 
-scale = 2
+scale = 5
+min_mag = 1.0
 
 import vtk
 import pandas as pd
@@ -24,7 +25,8 @@ max_radius = mag2radius(  max(mag)  )
 
 vtk_points = vtk.vtkPoints()
 for i in range(len(lon)):
-    vtk_points.InsertNextPoint(  lon[i], lat[i], -1.0 * dep[i] / ANGLE2KILOMETERS  )
+    if mag[i] >= min_mag:
+        vtk_points.InsertNextPoint(  lon[i], lat[i], -1.0 * dep[i] / ANGLE2KILOMETERS  )
 
 polydata = vtk.vtkPolyData()
 polydata.SetPoints(vtk_points)
@@ -32,16 +34,18 @@ polydata.SetPoints(vtk_points)
 diameter_array = vtk.vtkFloatArray()
 diameter_array.SetName("diameter")
 for j in range(len(mag)):
-    diameter = (  mag2radius(mag[j]) / max_radius  ) * 0.4
-    diameter_array.InsertNextValue(diameter)
+    if mag[j] >= min_mag:
+        diameter = (  mag2radius(mag[j]) / max_radius  ) * 0.4
+        diameter_array.InsertNextValue(diameter)
 
 dep_array = vtk.vtkFloatArray()
 dep_array.SetName("Depth")
 mag_array = vtk.vtkFloatArray()
 mag_array.SetName("magnitude")
-for k in range(len(dep)): 
-    dep_array.InsertNextValue(dep[k])
-    mag_array.InsertNextValue(mag[k])
+for k in range(len(dep)):
+    if mag[k] >= min_mag:
+        dep_array.InsertNextValue(dep[k])
+        mag_array.InsertNextValue(mag[k])
 
 polydata.GetPointData().SetScalars(diameter_array)    # SetScalars; not AddArray
 polydata.GetPointData().AddArray(dep_array)
