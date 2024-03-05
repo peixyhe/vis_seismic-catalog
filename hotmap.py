@@ -22,7 +22,7 @@ from scipy.spatial import cKDTree
 
 half_setp = round(  step * 0.5, 5  )
 ANGLE2METERS = 2 * math.pi * 6371393.0 / 360.0    # EARTH_RADIUS = 6371393.0
-z0 = scale * 6000 / ANGLE2METERS
+z0 = scale * 7170 / ANGLE2METERS
 search_radius = window_Width * step / 2.0
 core_radius = search_radius * 1.5
 
