@@ -1,10 +1,10 @@
-地震目录可视化小脚本。
+地震目录可视化小脚本，主要实现以下几种地震图的绘制：
 
-![image](pic/2d_sphere.png)
 
-![image](pic/3d_sphere.png)
 
-![image](pic/hotmap.png)
 
-![image](pic/rbf_cpu.png)
 
+<figure>
+  <p><img src="pic/2d_sphere.png"
+  <figcaption>二维散点球</figcaption>
+</figure>
