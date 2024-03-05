@@ -14,3 +14,6 @@
 
 ## 4、M-T图
 ![M-T图]("pic/m-t.png")
+
+## License
+[MIT LICENSE](./LICENSE)
