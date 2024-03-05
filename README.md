@@ -1,6 +1,15 @@
 # 地震目录可视化小脚本，主要实现以下几种地震图的绘制：
 
 ## 1、散点图：
+<p align="center">
+  <img src="pic/2d_sphere.png" alt="二维散点球" /><br />
+  图名: 二维散点球
+</p>
+
+
+
+
+
 ![二维散点球](pic/2d_sphere.png)
 图名:二维散点球
 ![三维散点球](pic/3d_sphere.png)
