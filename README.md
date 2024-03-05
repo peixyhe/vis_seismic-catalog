@@ -22,7 +22,7 @@
   热力图2
 </p>
 
-### 断层名称：1-ganzi; 2-xianshuihe; 3-longriba; 4-daliangshan; 5-litang; 6-zhongdian; 7-lijiang; 8-nujiang; 9-weixi; 10-honghe; 11-longmenshan; 12-nantinghe; 13-lancang; 14-huya.
+#### 主要活动断裂名称：1-ganzi; 2-xianshuihe; 3-longriba; 4-daliangshan; 5-litang; 6-zhongdian; 7-lijiang; 8-nujiang; 9-weixi; 10-honghe; 11-longmenshan; 12-nantinghe; 13-lancang; 14-huya.
 
 ## 3、M-F图
 <p align="center">
