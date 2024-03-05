@@ -3,28 +3,43 @@
 ## 1、散点图：
 <p align="center">
   <img src="pic/2d_sphere.png" alt="二维散点球" /><br />
-  图名: 二维散点球
+  二维散点球
+</p>
+
+<p align="center">
+  <img src="pic/3d_sphere.png" alt="三维散点球" /><br />
+  三维散点球
+</p>
+
+## 2、热力图：
+<p align="center">
+  <img src="pic/hotmap.png" alt="热力图" /><br />
+  热力图1
+</p>
+
+<p align="center">
+  <img src="pic/hotmap2.png" alt="热力图" /><br />
+  热力图2
+</p>
+
+## 3、M-F图
+<p align="center">
+  <img src="pic/M-F.png" alt="震级-频次图" /><br />
+  震级-频次图
+</p>
+
+<p align="center">
+  <img src="pic/rbf_cpu.png" alt="震级-频次图" /><br />
+  基于RBF的M-F图
+</p>
+
+## 4、M-T图
+<p align="center">
+  <img src="pic/m-t.png" alt="M-T图" /><br />
+  M-T图
 </p>
 
 
-
-
-
-![二维散点球](pic/2d_sphere.png)
-图名:二维散点球
-![三维散点球](pic/3d_sphere.png)
-图名:三维散点球
-
-## 2、热力图：
-![热力图](pic/hotmap.png)
-![热力图](pic/hotmap2.png)
-
-## 3、M-F图
-![震级-频次图](pic/M-F.png)
-![基于RBF的M-F图](pic/rbf_cpu.png)
-
-## 4、M-T图
-![M-T图](pic/m-t.png)
 
 ## License
 [MIT License](./LICENSE)
