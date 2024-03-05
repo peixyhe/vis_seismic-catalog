@@ -67,7 +67,7 @@ glyph.SetScaleModeToScaleByScalar()
 
 # 创建vtkPolyDataWriter将数据写入VTK文件
 writer = vtk.vtkPolyDataWriter()
-writer.SetFileName("2D_points_minMAG.vtk")
+writer.SetFileName("2D_points_minMAG-" + str(min_mag) + ".vtk")
 writer.SetInputConnection(glyph.GetOutputPort())
 writer.Write()
 
