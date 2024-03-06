@@ -5,7 +5,7 @@
 
 year0 = 2009
 year1 = 2022
-
+num_mouths = 1
 
 
 import vtk
@@ -29,7 +29,7 @@ def seconds_between_times(time1, time2):
     
     seconds_diff = (time2_dt - time1_dt).total_seconds()
     
-    return abs(seconds_diff) / (3600.0 * 24 * 30 * 6)    # 3600.0 * 24 * 30 * 6 = seconds for 6 mouths
+    return abs(seconds_diff) / (3600.0 * 24 * 30 * num_mouths)    # 3600.0 * 24 * 30 * 6 = seconds for 6 mouths
 
 df = pd.read_csv("data\\mag(1_7.2)-2009_2021.csv")
 time = df['time'].to_list()
@@ -67,7 +67,7 @@ linesPolyData.GetCellData().AddArray(magnitude)
 # writer = vtk.vtkUnstructuredGridWriter()
 writer = vtk.vtkXMLDataSetWriter()
 writer.SetInputData(linesPolyData)
-writer.SetFileName('M_T.vtu')
+writer.SetFileName(    "M_T-" + str(num_mouths) + "_mouths.vtu"    )
 # writer.SetDataModeToAscii()
 writer.Update()
 
