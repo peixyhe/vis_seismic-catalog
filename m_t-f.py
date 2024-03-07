@@ -5,23 +5,25 @@
 
 
 
-num_mouths = 1
+num_mouths = 3
 
 year0 = 2009
 year1 = 2022
 mag_step = 0.05
+t_step = 0.05
 
 if num_mouths == 1:
     minification = 20.0
-    t_step = 0.05 * 6.0
+    # t_step = 0.05 * 6.0
 elif num_mouths == 3:
     minification = 30.0
-    t_step = 0.05 * 2.0
+    # t_step = 0.05 * 2.0
 elif num_mouths == 6:
     minification = 50.0
-    t_step = 0.05
+    # t_step = 0.05
 else:
     minification = 10.0
+    # t_step = 0.05
 
 
 
