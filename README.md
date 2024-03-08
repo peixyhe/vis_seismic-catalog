@@ -41,6 +41,10 @@
   M-T图
 </p>
 
+<p align="center">
+  <img src="pic/hotmap-m-t.png" alt="改进的M-T图" /><br />
+  改进的M-T图
+</p>
 
 
 ### License
