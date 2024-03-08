@@ -48,5 +48,4 @@
 </p>
 
 
-### License
-[MIT License](./LICENSE)
+#### If you have any question or comments, please feel free to contact me at [hexypei@gmail.com]
