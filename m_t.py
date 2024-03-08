@@ -3,10 +3,10 @@
 ####  Author: He Pei; 2024.02.25                                         ####
 #############################################################################
 
-year0 = 2009
-year1 = 2022
-num_mouths = 1
 
+
+step_mouths = 5
+min_mag = 1.0
 
 import vtk
 import pandas as pd
@@ -29,34 +29,39 @@ def seconds_between_times(time1, time2):
     
     seconds_diff = (time2_dt - time1_dt).total_seconds()
     
-    return abs(seconds_diff) / (3600.0 * 24 * 30 * num_mouths)    # 3600.0 * 24 * 30 * 6 = seconds for 6 mouths
+    return abs(seconds_diff) / (3600.0 * 24 * 30 * step_mouths)    # 3600.0 * 24 * 30 * 6 = seconds for 6 mouths
 
 df = pd.read_csv("data\\mag(1_7.2)-2009_2021.csv")
 time = df['time'].to_list()
 mag = df['mag']
 
-t_min = time[-1]
-t_max = time[0]
 x0 = 0.0
-x1 = seconds_between_times(t_min, t_max)
-y0 = min(mag)
+x1 = seconds_between_times("2009.1.1 0:0", "2021.12.31 23:59")
+# y0 = min(mag)
+y0 = min_mag
 
+year0 = 2009
+year1 = 2022
 k = (year1 - year0) / (x1 - x0)
-b = year0 - k * x0
+print(1 / k, -1.0 / k * 2009)
 
+j = 0
 for i in range(  len(mag)  ):
-    poly_line = vtk.vtkLine()
-    
-    x = seconds_between_times(t_min, time[i])
-    points.InsertNextPoint(x * k + b, y0, 0.0)
-    points.InsertNextPoint(x * k + b, mag[i], 0.0)
-    
-    magnitude.InsertNextValue(mag[i])
-    
-    poly_line.GetPointIds().SetId(  0, 2*i      )
-    poly_line.GetPointIds().SetId(  1, 2*i + 1  )
-    
-    cell_lines.InsertNextCell(poly_line)
+    if mag[i] >= min_mag:
+        poly_line = vtk.vtkLine()
+        
+        x = seconds_between_times(  "2009.1.1 0:0", time[i]  )
+        points.InsertNextPoint(x, y0, 0.0)
+        points.InsertNextPoint(x, mag[i], 0.0)
+        
+        magnitude.InsertNextValue(mag[i])
+        
+        poly_line.GetPointIds().SetId(  0, 2*j      )
+        poly_line.GetPointIds().SetId(  1, 2*j + 1  )
+        
+        cell_lines.InsertNextCell(poly_line)
+        
+        j+=1
 
 linesPolyData.SetPoints(points)           # Add the points to the polydata container
 linesPolyData.SetLines(cell_lines)        # Add the lines to the polydata container
@@ -67,7 +72,7 @@ linesPolyData.GetCellData().AddArray(magnitude)
 # writer = vtk.vtkUnstructuredGridWriter()
 writer = vtk.vtkXMLDataSetWriter()
 writer.SetInputData(linesPolyData)
-writer.SetFileName(    "M_T-" + str(num_mouths) + "_mouths.vtu"    )
+writer.SetFileName(    "M-T_minMAG" + str(min_mag) + "_" + str(step_mouths) + "mouths.vtu"    )
 # writer.SetDataModeToAscii()
 writer.Update()
 
