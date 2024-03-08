@@ -23,6 +23,7 @@
 </p>
 
 #### 主要活动断裂名称：1-ganzi; 2-xianshuihe; 3-longriba; 4-daliangshan; 5-litang; 6-zhongdian; 7-lijiang; 8-nujiang; 9-weixi; 10-honghe; 11-longmenshan; 12-nantinghe; 13-lancang; 14-huya.
+##### (数据来源)[https://210.72.25.135/cfm3d/achievement/achievements-list/190-2023-12-15-08-43-16]
 
 ### 3、M-F图
 <p align="center">
