@@ -133,8 +133,8 @@ if __name__ == '__main__':
             id3 = id0 + x_num
             """
             id3------id2
-                |        |
-                |        |
+             |        |
+             |        |
             id0------id1
             """
             ugrid.InsertNextCell(    vtk.VTK_TRIANGLE, 3, [id3, id0, id1]    )    # ugrid.InsertNextCell(    vtk.VTK_QUAD, 4, [id0, id1, id2, id3]    )
