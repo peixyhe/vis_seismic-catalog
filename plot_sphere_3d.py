@@ -16,7 +16,10 @@ lat = df['lat']
 dep = df['dep']
 mag = df['mag']
 
-ANGLE2KILOMETERS = 2 * math.pi * 6371.393 / 360.0 / scale    # EARTH_RADIUS = 6371393.0
+LON_ANGLE2KILOMETERS = 2 * math.pi * 6371.393 / 360.0 / scale    # EARTH_RADIUS = 6371393.0(m)
+ANGLE2KILOMETERS = LON_ANGLE2KILOMETERS * math.sqrt(    1 + (  math.cos( math.radians( (min(lat)+max(lat)) / 2.0 ) )  ) ** 2.0    )
+# print(LON_ANGLE2KILOMETERS, ANGLE2KILOMETERS)
+
 def mag2radius(mag0):
     # return math.exp(  (mag - 4.56) / 1.96  )
     return math.pow(  2.0, (mag0 - 4.56) / 1.96  )
