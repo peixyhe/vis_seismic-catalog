@@ -18,38 +18,37 @@ dep = df['dep']
 mag = df['mag']
 
 ANGLE2KILOMETERS = 2 * math.pi * 6371.393 / 360.0    # EARTH_RADIUS = 6371393.0(m)
-def mag2radius(mag0):
-    # return math.exp(  (mag - 4.56) / 1.96  )
-    return math.pow(  2.0, (mag0 - 4.56) / 1.96  )
-
-max_radius = mag2radius(  max(mag)  )
 z0 = 0.05
 # z0 = scale * 6.0 / ANGLE2KILOMETERS
 
-vtk_points = vtk.vtkPoints()
-for i in range(len(lon)):
-    if mag[i] >= min_mag:
-        vtk_points.InsertNextPoint(  lon[i], lat[i], z0  )
+def mag2radius(mag0):
+    # return math.exp(  (mag - 4.56) / 1.96  )
+    return math.pow(  2.0, (mag0 - 4.56) / 1.96  )
+max_radius = mag2radius(  max(mag)  )
 
 polydata = vtk.vtkPolyData()
-polydata.SetPoints(vtk_points)
+
+vtk_points = vtk.vtkPoints()
 
 diameter_array = vtk.vtkFloatArray()
 diameter_array.SetName("diameter")
-for j in range(len(mag)):
-    if mag[j] >= min_mag:
-        diameter = (  mag2radius(mag[j]) / max_radius  ) * 0.4
-        diameter_array.InsertNextValue(diameter)
 
 dep_array = vtk.vtkFloatArray()
-dep_array.SetName("Depth")
+dep_array.SetName("depth(km)")
+
 mag_array = vtk.vtkFloatArray()
 mag_array.SetName("magnitude")
-for k in range(len(dep)): 
-    if mag[k] >= min_mag:
-        dep_array.InsertNextValue(dep[k])
-        mag_array.InsertNextValue(mag[k])
 
+for i in range(len(mag)):
+    if mag[i] >= CONST.min_mag:
+        diameter = (  mag2radius(mag[i]) / max_radius  )
+        
+        vtk_points.InsertNextPoint(  lon[i], lat[i], -1.0 * dep[i] / CONST.ANGLE2KILOMETERS  )
+        diameter_array.InsertNextValue(diameter)
+        dep_array.InsertNextValue(dep[i])
+        mag_array.InsertNextValue(mag[i])
+
+polydata.SetPoints(vtk_points)
 polydata.GetPointData().SetScalars(diameter_array)    # SetScalars; not AddArray
 polydata.GetPointData().AddArray(dep_array)
 polydata.GetPointData().AddArray(mag_array)
@@ -67,7 +66,7 @@ glyph.SetScaleModeToScaleByScalar()
 
 # 创建vtkPolyDataWriter将数据写入VTK文件
 writer = vtk.vtkPolyDataWriter()
-writer.SetFileName("2D_points_minMAG-" + str(min_mag) + ".vtk")
+writer.SetFileName(".\\result_Data\\catalog_3d.vtk")
 writer.SetInputConnection(glyph.GetOutputPort())
 writer.Write()
 
