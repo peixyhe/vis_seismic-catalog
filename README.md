@@ -14,15 +14,10 @@
 ### 2、地震热力图：
 <p align="center">
   <img src="pic/hotmap.png" alt="地震热力图" /><br />
-  地震热力图1
+  地震热力图
 </p>
 
-<p align="center">
-  <img src="pic/hotmap2.png" alt="地震热力图" /><br />
-  地震热力图2
-</p>
-
-#### 主要活动断裂名称：1-ganzi; 2-xianshuihe; 3-longriba; 4-daliangshan; 5-litang; 6-zhongdian; 7-lijiang; 8-nujiang; 9-weixi; 10-honghe; 11-longmenshan; 12-nantinghe; 13-lancang; 14-huya.（数据来源: https://210.72.25.135/cfm3d/achievement/achievements-list/190-2023-12-15-08-43-16）
+#### 主要活动断裂名称：1-daliangshan fault, 2-ganzi fault, 3-honghe fault, 4-huya fault, 5-lancang fault, 6-lijiang_xiaojinhe fault, 7-litang_batang fault, 8-longmenshan fault, 9-longriba fault, 10-nantinghe fault, 11-nujiang fault, 12-weixi_qiaohou fault, 13-xianshuihe_to_xiaojiang fault, 14-zhongdian fault. （数据来源: https://210.72.25.135/cfm3d/achievement/achievements-list/190-2023-12-15-08-43-16）
 
 ### 3、M-F图
 <p align="center">
@@ -31,7 +26,7 @@
 </p>
 
 <p align="center">
-  <img src="pic/rbf_cpu.png" alt="震级-频次图" /><br />
+  <img src="pic/rbf.png" alt="震级-频次图" /><br />
   改进的M-F图
 </p>
 
