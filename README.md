@@ -41,7 +41,7 @@
   改进的M-T图
 </p>
 
-### 5、综合3d视图    
+### 5、综合3d视图 [vedio](https://youtu.be/QSehgiGvUxA)    
 [![Watch the video](https://img.youtube.com/vi/QSehgiGvUxA/maxresdefault.jpg)](https://youtu.be/QSehgiGvUxA)
 
 ##### If you have any question or comments, please feel free to contact me at  hexypei@gmail.com.
